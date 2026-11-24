@@ -1,0 +1,80 @@
+#usda 1.0
+(
+    defaultPrim = "WorldGround"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "WorldGround"
+{
+    def Xform "Environment"
+    {
+        float3 xformOp:scale = (1, 1, 1)
+        uniform token[] xformOpOrder = ["xformOp:scale"]
+
+        def Mesh "Grid"
+        {
+            int[] faceVertexCounts = [4]
+            int[] faceVertexIndices = [0, 1, 2, 3]
+            point3f[] points = [(-50, -50, 0), (50, -50, 0), (50, 50, 0), (-50, 50, 0)]
+            normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1)] (
+                interpolation = "vertex"
+            )
+            # Match IsaacLab / Unitree Mdl texture_scale≈0.25 → ~4 tiles / 10m
+            texCoord2f[] primvars:st = [(0, 0), (10, 0), (10, 10), (0, 10)] (
+                interpolation = "vertex"
+            )
+            uniform token subdivisionScheme = "none"
+            rel material:binding = </WorldGround/Looks/theGrid>
+        }
+
+        def Plane "CollisionPlane" (
+            prepend apiSchemas = ["PhysicsCollisionAPI"]
+        )
+        {
+            uniform token axis = "Z"
+            double length = 100
+            double width = 100
+        }
+    }
+
+    def Scope "Looks"
+    {
+        def Material "theGrid"
+        {
+            token outputs:surface.connect = </WorldGround/Looks/theGrid/Shader.outputs:surface>
+            token outputs:mtl:surface.connect = </WorldGround/Looks/theGrid/Shader.outputs:surface>
+
+            def Shader "Tex"
+            {
+                uniform token info:id = "UsdUVTexture"
+                asset inputs:file = @./marble_tiles.png@
+                float2 inputs:st.connect = </WorldGround/Looks/theGrid/St.outputs:result>
+                token inputs:wrapS = "repeat"
+                token inputs:wrapT = "repeat"
+                float3 outputs:rgb
+            }
+
+            def Shader "St"
+            {
+                uniform token info:id = "UsdPrimvarReader_float2"
+                token inputs:varname = "st"
+                float2 outputs:result
+            }
+
+            def Shader "Shader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor.connect = </WorldGround/Looks/theGrid/Tex.outputs:rgb>
+                color3f inputs:diffuse_tint = (1, 1, 1)
+                float inputs:roughness = 0.35
+                token outputs:surface
+            }
+        }
+    }
+
+    def SphereLight "SphereLight"
+    {
+        float inputs:intensity = 0
+    }
+}

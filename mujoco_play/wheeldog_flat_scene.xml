@@ -1,0 +1,21 @@
+<mujoco model="wheeldog flat scene">
+  <include file="wheeldog.xml"/>
+  <!-- extent 大一点，镜头跟随时地面不易“消失” -->
+  <statistic center="0 0 0.35" extent="3.0"/>
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072"/>
+    <texture type="2d" name="groundplane" builtin="checker" mark="edge"
+      rgb1="0.85 0.85 0.88" rgb2="0.72 0.72 0.75" markrgb="0.55 0.55 0.58"
+      width="300" height="300"/>
+    <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="12 12" reflectance="0.08"/>
+  </asset>
+  <worldbody>
+    <light name="sun" pos="2 2 4" dir="-0.3 -0.3 -1" directional="true" castshadow="true" diffuse="0.85 0.85 0.8" specular="0.25 0.25 0.22"/>
+    <light name="fill" pos="-2 -1 3" dir="0.4 0.2 -1" directional="true" diffuse="0.25 0.28 0.32" specular="0.05 0.05 0.05"/>
+    <!-- 瓷砖地面：橡胶轮 μ 偏高；大平面避免跑远后“没地” -->
+    <!-- tile floor: grip + soft enough for tire patch; condim6 enables rolling resist -->
+    <geom name="floor" type="plane" size="80 80 0.05" material="groundplane"
+          friction="1.4 0.025 0.0015"
+          solref="0.005 1" solimp="0.92 0.97 0.0008 0.5 2" condim="6"/>
+  </worldbody>
+</mujoco>

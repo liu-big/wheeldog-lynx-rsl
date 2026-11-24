@@ -1,0 +1,55 @@
+# --- training / runtime ---
+logs/
+**/logs/
+**/outputs/
+**/runs/
+*.log
+setup.log
+
+# --- checkpoints & large binaries ---
+*.pt
+*.pth
+*.onnx
+*.zip
+*.tar
+*.tar.gz
+*.pkl
+*.npy
+*.npz
+*.npz.idx
+*.npz.data-*
+
+# keep deploy metadata only
+weights_hub/deploys/*/
+!weights_hub/deploys/.gitkeep
+weights_hub/**/*.pt
+weights_hub/**/*.onnx
+
+# --- python / IDE ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+dist/
+build/
+.venv/
+venv/
+.env
+.env.*
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# --- Isaac / Omniverse noise ---
+*.kit
+*_cache/
+.nvidia-omniverse/
+
+# --- nested vendor clones (reference only; link upstream instead) ---
+refs_robot_lab/
+
+# optional local Isaac paths
+_isaac_sim/
+weights_hub/deploys/latest

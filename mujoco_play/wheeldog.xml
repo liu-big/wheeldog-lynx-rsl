@@ -1,0 +1,150 @@
+<mujoco model="wheeldog">
+  <!-- Auto-generated from assets/wheeldog/urdf/wheeldog.urdf for RDK X5 MuJoCo passthrough -->
+  <compiler angle="radian" autolimits="true" meshdir="meshes" balanceinertia="true"/>
+  <!-- rubber tires: soft normal, sticky friction (elliptic + high impratio + noslip) -->
+  <option timestep="0.002" gravity="0 0 -9.81" integrator="implicitfast"
+          cone="elliptic" impratio="100" noslip_iterations="20"
+          iterations="80" ls_iterations="50" tolerance="1e-8"/>
+  <visual>
+    <global azimuth="140" elevation="-20"/>
+    <headlight ambient="0.35 0.35 0.35" diffuse="0.75 0.75 0.75" specular="0.2 0.2 0.2"/>
+  </visual>
+  <asset>
+    <mesh name="FL_H1_L" file="FL_H1_L.stl"/>
+    <mesh name="FL_H2_L" file="FL_H2_L.stl"/>
+    <mesh name="FL_K_L" file="FL_K_L.stl"/>
+    <mesh name="FL_W_L" file="FL_W_L.stl"/>
+    <mesh name="FR_H1_L" file="FR_H1_L.stl"/>
+    <mesh name="FR_H2_L" file="FR_H2_L.stl"/>
+    <mesh name="FR_K_L" file="FR_K_L.stl"/>
+    <mesh name="FR_W_L" file="FR_W_L.stl"/>
+    <mesh name="RL_H1_L" file="RL_H1_L.stl"/>
+    <mesh name="RL_H2_L" file="RL_H2_L.stl"/>
+    <mesh name="RL_K_L" file="RL_K_L.stl"/>
+    <mesh name="RL_W_L" file="RL_W_L.stl"/>
+    <mesh name="RR_H1_L" file="RR_H1_L.stl"/>
+    <mesh name="RR_H2_L" file="RR_H2_L.stl"/>
+    <mesh name="RR_K_L" file="RR_K_L.stl"/>
+    <mesh name="RR_W_L" file="RR_W_L.stl"/>
+    <mesh name="base_link" file="base_link.stl"/>
+  </asset>
+  <worldbody>
+    <body name="base_link" pos="0 0 0.505" quat="1 0 0 0">
+      <freejoint name="root"/>
+      <inertial pos="-0.0007406 0.00069345 -0.04093857" mass="10.086236" diaginertia="0.07619376 0.29274165 0.34145352"/>
+      <site name="imu" pos="0 0 0" size="0.01" group="3" rgba="0.2 0.8 1 0.35"/>
+      <geom name="base_visual" type="mesh" mesh="base_link" contype="0" conaffinity="0" group="0" rgba="0.55 0.55 0.58 1"/>
+      <geom name="base_col" type="box" size="0.22 0.10 0.04" pos="0 0 -0.02" contype="1" conaffinity="1" friction="0.8 0.02 0.01" rgba="0.5 0.5 0.5 0.1"/>
+      <body name="FL_H1_L" pos="0.250942211638264 0.0850004065068703 -0.0349995948141676">
+        <inertial pos="0.03618681 0.02789884 2.624e-05" mass="1.65955" diaginertia="0.00121543 0.00216424 0.00238836"/>
+        <joint name="FL_H1_L_j1" type="hinge" axis="1 0 0" range="-0.5236 0.5236" actuatorfrcrange="-60.0 60.0" damping="0.25" frictionloss="0.12" armature="0.02"/>
+        <geom type="mesh" mesh="FL_H1_L" contype="0" conaffinity="0" group="0" rgba="0.75 0.75 0.78 1"/>
+        <body name="FL_H2_L" pos="0.0530000000000002 0.0887499999999999 0">
+          <inertial pos="0.0001072 0.01365002 -0.19127837" mass="1.5865628" diaginertia="0.01711356 0.01693647 0.00119761"/>
+          <joint name="FL_H2_L_j2" type="hinge" axis="0 1 0" range="-0.7854 0.7854" actuatorfrcrange="-60.0 60.0" damping="0.25" frictionloss="0.12" armature="0.02"/>
+          <geom type="mesh" mesh="FL_H2_L" contype="0" conaffinity="0" group="0" rgba="0.75 0.75 0.78 1"/>
+          <body name="FL_K_L" pos="0 -0.0329999999999998 -0.25">
+            <inertial pos="0.00034449 0.00755602 -0.13356443" mass="0.79338703" diaginertia="0.01102442 0.01112229 0.00053818"/>
+            <joint name="FL_K_L_j3" type="hinge" axis="0 -1 0" range="-2.0944 2.0944" actuatorfrcrange="-60.0 60.0" damping="0.25" frictionloss="0.12" armature="0.02"/>
+            <geom type="mesh" mesh="FL_K_L" contype="0" conaffinity="0" group="0" rgba="0.75 0.75 0.78 1"/>
+            <body name="FL_W_L" pos="0 0.062 -0.25">
+              <inertial pos="0 -0.00390569 0" mass="0.65012417" diaginertia="0.00134138 0.00242814 0.00134138"/>
+              <joint name="FL_W_L_j4" type="hinge" axis="0 -1 0" actuatorfrcrange="-14.0 14.0" damping="0.15" frictionloss="0.08" armature="0.02"/>
+              <geom type="mesh" mesh="FL_W_L" contype="0" conaffinity="0" group="0" rgba="0.12 0.12 0.13 1"/>
+              <geom name="FL_W_L_contact" type="ellipsoid" size="0.097 0.038 0.097" contype="1" conaffinity="1" condim="6" friction="1.5 0.025 0.0015" solref="0.005 1" solimp="0.92 0.97 0.0008 0.5 2" priority="1" group="3" rgba="0.05 0.05 0.05 0.0"/>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="FR_H1_L" pos="0.250942211638264 -0.0849995934931297 -0.034999594814168">
+        <inertial pos="0.03612386 -0.02789884 2.621e-05" mass="1.65955" diaginertia="0.00121543 0.00216072 0.00238484"/>
+        <joint name="FR_H1_L_j1" type="hinge" axis="1 0 0" range="-0.5236 0.5236" actuatorfrcrange="-60.0 60.0" damping="0.25" frictionloss="0.12" armature="0.02"/>
+        <geom type="mesh" mesh="FR_H1_L" contype="0" conaffinity="0" group="0" rgba="0.75 0.75 0.78 1"/>
+        <body name="FR_H2_L" pos="0.053 -0.08875 0">
+          <inertial pos="-0.0002839 -0.01365002 -0.19123181" mass="1.5865628" diaginertia="0.01710472 0.01692768 0.00119766"/>
+          <joint name="FR_H2_L_j2" type="hinge" axis="0 -1 0" range="-0.7854 0.7854" actuatorfrcrange="-60.0 60.0" damping="0.25" frictionloss="0.12" armature="0.02"/>
+          <geom type="mesh" mesh="FR_H2_L" contype="0" conaffinity="0" group="0" rgba="0.75 0.75 0.78 1"/>
+          <body name="FR_K_L" pos="0 0.0329999999999995 -0.25">
+            <inertial pos="0.00034455 -0.00936192 -0.13356438" mass="0.79338703" diaginertia="0.0109974 0.01112229 0.0005117"/>
+            <joint name="FR_K_L_j3" type="hinge" axis="0 1 0" range="-2.0944 2.0944" actuatorfrcrange="-60.0 60.0" damping="0.25" frictionloss="0.12" armature="0.02"/>
+            <geom type="mesh" mesh="FR_K_L" contype="0" conaffinity="0" group="0" rgba="0.75 0.75 0.78 1"/>
+            <body name="FR_W_L" pos="0 -0.0659999999999999 -0.25">
+              <inertial pos="0 0.00390569 0" mass="0.65012417" diaginertia="0.00134138 0.00242814 0.00134138"/>
+              <joint name="FR_W_L_j4" type="hinge" axis="0 1 0" actuatorfrcrange="-14.0 14.0" damping="0.15" frictionloss="0.08" armature="0.02"/>
+              <geom type="mesh" mesh="FR_W_L" contype="0" conaffinity="0" group="0" rgba="0.12 0.12 0.13 1"/>
+              <geom name="FR_W_L_contact" type="ellipsoid" size="0.097 0.038 0.097" contype="1" conaffinity="1" condim="6" friction="1.5 0.025 0.0015" solref="0.005 1" solimp="0.92 0.97 0.0008 0.5 2" priority="1" group="3" rgba="0.05 0.05 0.05 0.0"/>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="RL_H1_L" pos="-0.253057788361737 0.0850004065068702 -0.0349995948141677">
+        <inertial pos="-0.03612386 0.02789884 2.621e-05" mass="1.65955" diaginertia="0.00121543 0.00216072 0.00238484"/>
+        <joint name="RL_H1_L_j1" type="hinge" axis="-1 0 0" range="-0.5236 0.5236" actuatorfrcrange="-60.0 60.0" damping="0.25" frictionloss="0.12" armature="0.02"/>
+        <geom type="mesh" mesh="RL_H1_L" contype="0" conaffinity="0" group="0" rgba="0.75 0.75 0.78 1"/>
+        <body name="RL_H2_L" pos="-0.053 0.0877500000000002 0">
+          <inertial pos="0.000146 0.01365002 -0.19123181" mass="1.5865628" diaginertia="0.01710472 0.01692778 0.00119776"/>
+          <joint name="RL_H2_L_j2" type="hinge" axis="0 1 0" range="-0.7854 0.7854" actuatorfrcrange="-60.0 60.0" damping="0.25" frictionloss="0.12" armature="0.02"/>
+          <geom type="mesh" mesh="RL_H2_L" contype="0" conaffinity="0" group="0" rgba="0.75 0.75 0.78 1"/>
+          <body name="RL_K_L" pos="0 -0.0330000000000001 -0.25">
+            <inertial pos="0.00034383 0.00755602 -0.13358517" mass="0.79338703" diaginertia="0.01101993 0.01111789 0.00053827"/>
+            <joint name="RL_K_L_j3" type="hinge" axis="0 -1 0" range="-2.0944 2.0944" actuatorfrcrange="-60.0 60.0" damping="0.25" frictionloss="0.12" armature="0.02"/>
+            <geom type="mesh" mesh="RL_K_L" contype="0" conaffinity="0" group="0" rgba="0.75 0.75 0.78 1"/>
+            <body name="RL_W_L" pos="0 0.0620000000000001 -0.25">
+              <inertial pos="0 -0.00390569 0" mass="0.65012417" diaginertia="0.00134138 0.00242814 0.00134138"/>
+              <joint name="RL_W_L_j4" type="hinge" axis="0 -1 0" actuatorfrcrange="-14.0 14.0" damping="0.15" frictionloss="0.08" armature="0.02"/>
+              <geom type="mesh" mesh="RL_W_L" contype="0" conaffinity="0" group="0" rgba="0.12 0.12 0.13 1"/>
+              <geom name="RL_W_L_contact" type="ellipsoid" size="0.097 0.038 0.097" contype="1" conaffinity="1" condim="6" friction="1.5 0.025 0.0015" solref="0.005 1" solimp="0.92 0.97 0.0008 0.5 2" priority="1" group="3" rgba="0.05 0.05 0.05 0.0"/>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="RR_H1_L" pos="-0.253057788361736 -0.0849995934931296 -0.0349995948141678">
+        <inertial pos="-0.03618681 -0.02789884 2.624e-05" mass="1.65955" diaginertia="0.00121543 0.00216424 0.00238836"/>
+        <joint name="RR_H1_L_j1" type="hinge" axis="-1 0 0" range="-0.5236 0.5236" actuatorfrcrange="-60.0 60.0" damping="0.25" frictionloss="0.12" armature="0.02"/>
+        <geom type="mesh" mesh="RR_H1_L" contype="0" conaffinity="0" group="0" rgba="0.75 0.75 0.78 1"/>
+        <body name="RR_H2_L" pos="-0.053 -0.08875 0">
+          <inertial pos="9.944e-05 -0.01365002 -0.19127837" mass="1.5865628" diaginertia="0.01711356 0.01693647 0.00119761"/>
+          <joint name="RR_H2_L_j2" type="hinge" axis="0 -1 0" range="-0.7854 0.7854" actuatorfrcrange="-60.0 60.0" damping="0.25" frictionloss="0.12" armature="0.02"/>
+          <geom type="mesh" mesh="RR_H2_L" contype="0" conaffinity="0" group="0" rgba="0.75 0.75 0.78 1"/>
+          <body name="RR_K_L" pos="0 0.0329999999999999 -0.250000000000005">
+            <inertial pos="0.00034455 -0.00755602 -0.13356437" mass="0.79338703" diaginertia="0.01102412 0.01112228 0.00053846"/>
+            <joint name="RR_K_L_j3" type="hinge" axis="0 1 0" range="-2.0944 2.0944" actuatorfrcrange="-60.0 60.0" damping="0.25" frictionloss="0.12" armature="0.02"/>
+            <geom type="mesh" mesh="RR_K_L" contype="0" conaffinity="0" group="0" rgba="0.75 0.75 0.78 1"/>
+            <body name="RR_W_L" pos="0 -0.062 -0.25">
+              <inertial pos="0 0.00390569 0" mass="0.65012417" diaginertia="0.00134138 0.00242814 0.00134138"/>
+              <joint name="RR_W_L_j4" type="hinge" axis="0 1 0" actuatorfrcrange="-14.0 14.0" damping="0.15" frictionloss="0.08" armature="0.02"/>
+              <geom type="mesh" mesh="RR_W_L" contype="0" conaffinity="0" group="0" rgba="0.12 0.12 0.13 1"/>
+              <geom name="RR_W_L_contact" type="ellipsoid" size="0.097 0.038 0.097" contype="1" conaffinity="1" condim="6" friction="1.5 0.025 0.0015" solref="0.005 1" solimp="0.92 0.97 0.0008 0.5 2" priority="1" group="3" rgba="0.05 0.05 0.05 0.0"/>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+  <actuator>
+    <position name="act_FL_H1_L_j1" joint="FL_H1_L_j1" kp="125" kv="6.6" ctrlrange="-3.14 3.14" forcerange="-60 60"/>
+    <position name="act_FR_H1_L_j1" joint="FR_H1_L_j1" kp="125" kv="6.6" ctrlrange="-3.14 3.14" forcerange="-60 60"/>
+    <position name="act_RL_H1_L_j1" joint="RL_H1_L_j1" kp="125" kv="6.6" ctrlrange="-3.14 3.14" forcerange="-60 60"/>
+    <position name="act_RR_H1_L_j1" joint="RR_H1_L_j1" kp="125" kv="6.6" ctrlrange="-3.14 3.14" forcerange="-60 60"/>
+    <position name="act_FL_H2_L_j2" joint="FL_H2_L_j2" kp="95" kv="6.6" ctrlrange="-3.14 3.14" forcerange="-60 60"/>
+    <position name="act_FR_H2_L_j2" joint="FR_H2_L_j2" kp="95" kv="6.6" ctrlrange="-3.14 3.14" forcerange="-60 60"/>
+    <position name="act_RL_H2_L_j2" joint="RL_H2_L_j2" kp="95" kv="6.6" ctrlrange="-3.14 3.14" forcerange="-60 60"/>
+    <position name="act_RR_H2_L_j2" joint="RR_H2_L_j2" kp="95" kv="6.6" ctrlrange="-3.14 3.14" forcerange="-60 60"/>
+    <position name="act_FL_K_L_j3" joint="FL_K_L_j3" kp="95" kv="6.6" ctrlrange="-3.14 3.14" forcerange="-60 60"/>
+    <position name="act_FR_K_L_j3" joint="FR_K_L_j3" kp="95" kv="6.6" ctrlrange="-3.14 3.14" forcerange="-60 60"/>
+    <position name="act_RL_K_L_j3" joint="RL_K_L_j3" kp="95" kv="6.6" ctrlrange="-3.14 3.14" forcerange="-60 60"/>
+    <position name="act_RR_K_L_j3" joint="RR_K_L_j3" kp="95" kv="6.6" ctrlrange="-3.14 3.14" forcerange="-60 60"/>
+    <velocity name="act_FL_W_L_j4" joint="FL_W_L_j4" kv="2.5" ctrlrange="-33 33" forcerange="-14 14"/>
+    <velocity name="act_FR_W_L_j4" joint="FR_W_L_j4" kv="2.5" ctrlrange="-33 33" forcerange="-14 14"/>
+    <velocity name="act_RL_W_L_j4" joint="RL_W_L_j4" kv="2.5" ctrlrange="-33 33" forcerange="-14 14"/>
+    <velocity name="act_RR_W_L_j4" joint="RR_W_L_j4" kv="2.5" ctrlrange="-33 33" forcerange="-14 14"/>
+  </actuator>
+  <sensor>
+    <accelerometer name="imu_acc" site="imu"/>
+    <gyro name="imu_gyro" site="imu"/>
+    <framequat name="imu_quat" objtype="site" objname="imu"/>
+  </sensor>
+  <keyframe>
+    <key name="stand" qpos="0 0 0.505 1 0 0 0 0.02 0.70905 1.418099 0.0 -0.02 -0.708313 -1.416625 0.0 -0.02 -0.709234 -1.418468 0.0 0.02 0.70905 1.418099 0.0"/>
+  </keyframe>
+</mujoco>

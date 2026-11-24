@@ -1,0 +1,24 @@
+#usda 1.0
+(
+    defaultPrim = "Arrow"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "Arrow"
+{
+    def Cylinder "shaft" {
+        uniform token axis = "X"
+        double height = 0.8
+        double radius = 0.04
+        float3 xformOp:translate = (0.3, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+    def Cone "head" {
+        uniform token axis = "X"
+        double height = 0.25
+        double radius = 0.09
+        float3 xformOp:translate = (0.825, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+}

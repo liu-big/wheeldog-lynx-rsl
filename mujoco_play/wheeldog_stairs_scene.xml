@@ -1,0 +1,76 @@
+<mujoco model="wheeldog stairs multi-terrain">
+  <!-- 红地面 + 15cm/20cm 多楼梯/单级/小凸起；机器人出生在原点朝 +x -->
+  <include file="wheeldog.xml"/>
+  <statistic center="2 0 0.4" extent="6.0"/>
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.25 0.35 0.45" rgb2="0 0 0" width="512" height="3072"/>
+    <texture type="2d" name="redground" builtin="checker" mark="edge"
+      rgb1="0.85 0.18 0.12" rgb2="0.72 0.12 0.08" markrgb="0.55 0.08 0.05"
+      width="300" height="300"/>
+    <material name="redground" texture="redground" texuniform="true" texrepeat="10 10" reflectance="0.06"/>
+    <material name="stair15" rgba="0.92 0.55 0.18 1" reflectance="0.04"/>
+    <material name="stair20" rgba="0.75 0.22 0.55 1" reflectance="0.04"/>
+    <material name="pad" rgba="0.35 0.55 0.75 1" reflectance="0.04"/>
+    <material name="bump" rgba="0.45 0.45 0.40 1" reflectance="0.03"/>
+  </asset>
+  <default>
+    <default class="terrain">
+      <geom type="box" friction="1.4 0.025 0.0015"
+            solref="0.005 1" solimp="0.92 0.97 0.0008 0.5 2" condim="6"
+            contype="1" conaffinity="1"/>
+    </default>
+  </default>
+  <worldbody>
+    <light name="sun" pos="3 2 5" dir="-0.35 -0.25 -1" directional="true" castshadow="true"
+           diffuse="0.9 0.85 0.8" specular="0.25 0.25 0.22"/>
+    <light name="fill" pos="-2 -2 3" dir="0.4 0.3 -1" directional="true"
+           diffuse="0.28 0.28 0.32" specular="0.05 0.05 0.05"/>
+
+    <geom name="floor" type="plane" size="40 40 0.05" material="redground"
+          friction="1.4 0.025 0.0015"
+          solref="0.005 1" solimp="0.92 0.97 0.0008 0.5 2" condim="6"/>
+
+    <!-- ===== 左通道 Y=+1.8：15cm 楼梯（踏面 0.50，6 级）朝 +x 爬升 ===== -->
+    <body name="stairs_15cm" pos="1.2 1.8 0">
+      <geom class="terrain" name="s15_1" material="stair15" size="0.25 0.70 0.075" pos="0.25 0 0.075"/>
+      <geom class="terrain" name="s15_2" material="stair15" size="0.25 0.70 0.150" pos="0.75 0 0.150"/>
+      <geom class="terrain" name="s15_3" material="stair15" size="0.25 0.70 0.225" pos="1.25 0 0.225"/>
+      <geom class="terrain" name="s15_4" material="stair15" size="0.25 0.70 0.300" pos="1.75 0 0.300"/>
+      <geom class="terrain" name="s15_5" material="stair15" size="0.25 0.70 0.375" pos="2.25 0 0.375"/>
+      <geom class="terrain" name="s15_6" material="stair15" size="0.25 0.70 0.450" pos="2.75 0 0.450"/>
+      <!-- 平台 -->
+      <geom class="terrain" name="s15_plat" material="stair15" size="0.80 0.70 0.450" pos="3.80 0 0.450"/>
+    </body>
+
+    <!-- ===== 右通道 Y=-1.8：20cm 楼梯（踏面 0.50，5 级）朝 +x 爬升 ===== -->
+    <body name="stairs_20cm" pos="1.2 -1.8 0">
+      <geom class="terrain" name="s20_1" material="stair20" size="0.25 0.70 0.10" pos="0.25 0 0.10"/>
+      <geom class="terrain" name="s20_2" material="stair20" size="0.25 0.70 0.20" pos="0.75 0 0.20"/>
+      <geom class="terrain" name="s20_3" material="stair20" size="0.25 0.70 0.30" pos="1.25 0 0.30"/>
+      <geom class="terrain" name="s20_4" material="stair20" size="0.25 0.70 0.40" pos="1.75 0 0.40"/>
+      <geom class="terrain" name="s20_5" material="stair20" size="0.25 0.70 0.50" pos="2.25 0 0.50"/>
+      <geom class="terrain" name="s20_plat" material="stair20" size="0.90 0.70 0.50" pos="3.40 0 0.50"/>
+    </body>
+
+    <!-- ===== 中间偏前：15cm 短楼梯（倒三角感：从平台下台阶，可从 +x 端爬出）===== -->
+    <body name="stairs_15_short" pos="8.0 0 0">
+      <geom class="terrain" name="s15b_plat" material="stair15" size="1.0 1.0 0.30" pos="0 0 0.30"/>
+      <geom class="terrain" name="s15b_4" material="stair15" size="0.25 1.0 0.30" pos="1.25 0 0.30"/>
+      <geom class="terrain" name="s15b_3" material="stair15" size="0.25 1.0 0.225" pos="1.75 0 0.225"/>
+      <geom class="terrain" name="s15b_2" material="stair15" size="0.25 1.0 0.150" pos="2.25 0 0.150"/>
+      <geom class="terrain" name="s15b_1" material="stair15" size="0.25 1.0 0.075" pos="2.75 0 0.075"/>
+    </body>
+
+    <!-- ===== 20cm 单级 / 双级垫（暖身）===== -->
+    <geom class="terrain" name="pad_15" material="pad" size="0.80 0.80 0.075" pos="-1.5 1.5 0.075"/>
+    <geom class="terrain" name="pad_20" material="pad" size="0.90 0.90 0.10" pos="-1.5 -1.5 0.10"/>
+    <geom class="terrain" name="pad_20b" material="pad" size="0.70 0.70 0.20" pos="-3.2 0 0.20"/>
+
+    <!-- ===== 碎小凸起（轻 rough）===== -->
+    <geom class="terrain" name="bump1" material="bump" size="0.18 0.18 0.04" pos="0.8 0.3 0.04"/>
+    <geom class="terrain" name="bump2" material="bump" size="0.22 0.15 0.05" pos="0.5 -0.4 0.05"/>
+    <geom class="terrain" name="bump3" material="bump" size="0.15 0.20 0.035" pos="-0.6 0.6 0.035"/>
+    <geom class="terrain" name="bump4" material="bump" size="0.25 0.12 0.045" pos="5.5 1.0 0.045"/>
+    <geom class="terrain" name="bump5" material="bump" size="0.16 0.16 0.06" pos="5.2 -1.2 0.06"/>
+  </worldbody>
+</mujoco>
